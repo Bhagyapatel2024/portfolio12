@@ -9,9 +9,9 @@ export default function About() {
         <h2 className="text-4xl font-extrabold text-white mb-12 text-center">About Me</h2>
         
         {/* About Content */}
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+{/*         <div className="grid md:grid-cols-2 gap-10 items-center"> */}
           {/* Image Section */}
-          <div className="flex justify-center">
+{/*           <div className="flex justify-center">
             <div className="relative">
               <img
                 src={t2}
@@ -19,7 +19,7 @@ export default function About() {
                 className="rounded-full shadow-xl w-72 h-72 border-4 border-black object-cover transform transition duration-500 hover:scale-105"
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Text Section */}
           <div>
