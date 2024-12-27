@@ -64,8 +64,8 @@ const machineLearningProjects = [
     title: 'Diamond-Price-Predictor',
     description: 'Developed a machine learning tool for predictive analysis using Random Forest, Gradient Boosting, and Neural Networks. Implemented data preprocessing, feature engineering, and hyperparameter tuning to enhance accuracy. Designed the system to handle scalable classification and regression tasks across diverse datasets efficiently.',
     image: 'https://camo.githubusercontent.com/24423acfacdb118b6004e2e22d9b5771fb607fcab13066fb604026d893ea01c2/68747470733a2f2f64617461616e616c7974696373656467652e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031392f31312f666561747572655f656e5f6469616d6f6e645f63657274696669636174696f6e2d373737783338332e6a7067',
-    github: 'https://drive.google.com/file/d/1va27aVl6F6-Y9Ra7XAaobIcEX5eTxA_F/view',
-    live: 'https://drive.google.com/file/d/1va27aVl6F6-Y9Ra7XAaobIcEX5eTxA_F/view',
+    github: 'https://drive.google.com/file/d/1Z_1dHzt6lhOnDGNzoIbK2CNma6t5_YGy/view?usp=sharing',
+    live: 'https://drive.google.com/file/d/1Z_1dHzt6lhOnDGNzoIbK2CNma6t5_YGy/view?usp=sharing',
     tags: ['Machine Learning Algorithm', 'EDA','Streamlit'],
    },
 
@@ -76,6 +76,14 @@ const machineLearningProjects = [
  github: 'https://drive.google.com/file/d/1uo67WcHWSnwDqiNQMYkCNzlu-Jd3LgzM/view',
  live: 'https://drive.google.com/file/d/1uo67WcHWSnwDqiNQMYkCNzlu-Jd3LgzM/view',
  tags: ['Machine Learning Algorithm', 'EDA','Streamlit'],
+},
+{
+ title: 'Clustered content Suggestion',
+ description: 'Developed a **Vehicle Valuation Hub** using machine learning to predict car resale values based on features like kilometers driven, model, make, and year. Implemented data preprocessing, feature engineering, and regression models to ensure accurate valuation. Designed the tool to assist sellers in determining the optimal selling price for their vehicles.',
+ image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuSxh9zZZdD3i9zY8JeQgZCqJPtW9MC2eMOQ&s',
+ github: 'https://drive.google.com/file/d/1DfOeG4TaSWNXhFgL0GYOXm1T3IwK8Qp-/view?usp=sharing',
+  live: 'https://drive.google.com/file/d/1DfOeG4TaSWNXhFgL0GYOXm1T3IwK8Qp-/view?usp=sharing',
+  tags: ['Machine Learning Algorithm', 'EDA','Streamlit'], 
 },
 {
   title: 'TunedML Explorer',
