@@ -3,7 +3,7 @@ import { Linkedin, Code2 } from 'lucide-react';
 
 const Hero = () => {
   const fullText =
-    "Enthusiastic Computer Science Engineering student skilled in Java, Python, and web development with React.js. Experienced in building real-time applications and predictive models using scikit-learn and TensorFlow. Solved 500+ problems on LeetCode and achieved AIR 553 in the NSTSE.;
+    "Enthusiastic Computer Science Engineering student skilled in Java, Python, and web development with React.js. Experienced in building real-time applications and predictive models using scikit-learn and TensorFlow. Solved 500+ problems on LeetCode and achieved AIR 553 in the NSTSE.";
   
   const [displayText, setDisplayText] = useState('');
   const [index, setIndex] = useState(0);
