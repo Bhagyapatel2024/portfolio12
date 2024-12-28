@@ -3,7 +3,7 @@ import { Linkedin, Code2 } from 'lucide-react';
 
 const Hero = () => {
   const fullText =
-    "I am an enthusiastic Computer Science Engineering student with a strong foundation in programming languages like Java and Python. I have hands-on experience in web development technologies such as React.js to build real-time applications. My background in machine learning includes developing predictive models using frameworks like scikit-learn and TensorFlow. Additionally, I have solved over 500 problems on LeetCode. I also secured an All India Rank of 553 in the National Level Science Talent Search Examination.";
+    "Enthusiastic Computer Science Engineering student skilled in Java, Python, and web development with React.js. Experienced in building real-time applications and predictive models using scikit-learn and TensorFlow. Solved 500+ problems on LeetCode and achieved AIR 553 in the NSTSE.;
   
   const [displayText, setDisplayText] = useState('');
   const [index, setIndex] = useState(0);
