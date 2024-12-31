@@ -130,7 +130,7 @@ const Projects = () => {
 
  return (
   
-  <section id="projects" className="py-20 bg-black">
+ <section id="projects" className="py-20 bg-black">
   <div className="container mx-auto px-4 relative">
     {/* Section Title */}
     <h2 className="text-4xl font-bold text-white mb-8 text-center">Projects</h2>
@@ -151,22 +151,24 @@ const Projects = () => {
               style={{ marginLeft: "20px" }}
             >
               &#8592; {/* Left Arrow */}
-             </button>
-           )}
+            </button>
+          )}
 
           {/* Carousel Container */}
-          <div className="overflow-hidden w-full max-w-7xl">
+          <div className="overflow-hidden w-full max-w-md md:max-w-7xl">
             <div
               className="flex transition-transform duration-500"
               style={{
                 transform: `translateX(-${currentIndexes[catIndex] * 100}%)`,
+                width: `${category.projects.length * 100}%`,
               }}
             >
               {/* Loop through projects */}
               {category.projects.map((project, index) => (
                 <div
                   key={index}
-                  className="bg-gray-900 rounded-xl shadow-lg w-80 mx-2"
+                  className="bg-gray-900 rounded-xl shadow-lg w-full md:w-80 mx-2"
+                  style={{ flex: '0 0 auto' }}
                 >
                   <a
                     href={project.live || project.github}
@@ -230,7 +232,7 @@ const Projects = () => {
           </div>
 
           {/* Right Arrow */}
-           {currentIndexes[catIndex] < category.projects.length - 1 && (
+          {currentIndexes[catIndex] < category.projects.length - 1 && (
             <button
               onClick={() => handleNext(catIndex)}
               className="absolute right-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
@@ -238,13 +240,13 @@ const Projects = () => {
             >
               &#8594; {/* Right Arrow */}
             </button>
-          )} 
+          )}
         </div>
       </div>
     ))}
   </div>
 </section>
-   
+
 
 
  );
