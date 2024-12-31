@@ -95,64 +95,51 @@ const machineLearningProjects = [
  }
 ];
 
-const Projects = () => {
-  const projectCategories = [
-    { title: "Frontend Projects", projects: frontendProjects },
-    { title: "Full Stack Projects", projects: fullStackProjects },
-    { title: "Machine Learning Projects", projects: machineLearningProjects },
-    // { title: "LLM and NLP Projects", projects: llmNlpProjects },
-  ];
-
- // Initialize the state with an array for each category
- const [currentIndexes, setCurrentIndexes] = useState(new Array(projectCategories.length).fill(0));
-
- // Handle next button click for each category
- const handleNext = (catIndex) => {
-   setCurrentIndexes((prevIndexes) => {
-     const newIndexes = [...prevIndexes];
-     if (newIndexes[catIndex] < projectCategories[catIndex].projects.length - 1) {
-       newIndexes[catIndex] += 1;
-     }
-     return newIndexes;
-   });
- };
-
- // Handle prev button click for each category
- const handlePrev = (catIndex) => {
-   setCurrentIndexes((prevIndexes) => {
-     const newIndexes = [...prevIndexes];
-     if (newIndexes[catIndex] > 0) {
-       newIndexes[catIndex] -= 1;
-     }
-     return newIndexes;
-   });
- };
-
-  const Projects = ({ projectCategories }) => {
+const Projects = ({ projectCategories }) => {
+  // Initialize the state for keeping track of current indexes
   const [currentIndexes, setCurrentIndexes] = useState(
     new Array(projectCategories.length).fill(0)
   );
 
-  // Auto-slide effect using setInterval
+  // Auto-slide effect using useEffect
   useEffect(() => {
     const autoSlide = setInterval(() => {
-      setCurrentIndexes((prevIndexes) => {
-        return prevIndexes.map((currentIndex, catIndex) => {
+      setCurrentIndexes((prevIndexes) =>
+        prevIndexes.map((currentIndex, catIndex) => {
           const nextIndex =
             (currentIndex + 1) % projectCategories[catIndex].projects.length;
           return nextIndex;
-        });
-      });
-    }, 3000); // Change slide every 3 seconds
+        })
+      );
+    }, 3000); // Slide changes every 3 seconds
 
-    // Cleanup the interval on component unmount
+    // Cleanup interval on unmount
     return () => clearInterval(autoSlide);
   }, [projectCategories]);
 
+  // Handle manual navigation
+  const handleNext = (catIndex) => {
+    setCurrentIndexes((prevIndexes) => {
+      const newIndexes = [...prevIndexes];
+      newIndexes[catIndex] =
+        (newIndexes[catIndex] + 1) %
+        projectCategories[catIndex].projects.length;
+      return newIndexes;
+    });
+  };
 
- return (
-  
-  <section id="projects" className="py-20 bg-black">
+  const handlePrev = (catIndex) => {
+    setCurrentIndexes((prevIndexes) => {
+      const newIndexes = [...prevIndexes];
+      newIndexes[catIndex] =
+        (newIndexes[catIndex] - 1 + projectCategories[catIndex].projects.length) %
+        projectCategories[catIndex].projects.length;
+      return newIndexes;
+    });
+  };
+
+  return (
+    <section id="projects" className="py-20 bg-black">
       <div className="container mx-auto px-4 relative">
         {/* Section Title */}
         <h2 className="text-4xl font-bold text-white mb-8 text-center">
@@ -170,17 +157,15 @@ const Projects = () => {
             {/* Carousel Wrapper */}
             <div className="relative flex items-center justify-center">
               {/* Left Arrow */}
-              {currentIndexes[catIndex] > 0 && (
-                <button
-                  onClick={() => handlePrev(catIndex)}
-                  className="absolute left-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
-                  style={{ marginLeft: "20px" }}
-                >
-                  &#8592; {/* Left Arrow */}
-                </button>
-              )}
+              <button
+                onClick={() => handlePrev(catIndex)}
+                className="absolute left-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
+                style={{ marginLeft: "20px" }}
+              >
+                &#8592;
+              </button>
 
-              {/* Single Card Display */}
+              {/* Current Project Card */}
               <div className="w-full max-w-md mx-auto overflow-hidden">
                 {category.projects[currentIndexes[catIndex]] && (
                   <div className="bg-gray-900 rounded-xl shadow-lg w-full">
@@ -196,7 +181,9 @@ const Projects = () => {
                       {/* Project Image */}
                       <div className="relative h-64">
                         <img
-                          src={category.projects[currentIndexes[catIndex]].image}
+                          src={
+                            category.projects[currentIndexes[catIndex]].image
+                          }
                           alt={
                             category.projects[currentIndexes[catIndex]].title
                           }
@@ -208,7 +195,7 @@ const Projects = () => {
                         <h3 className="text-xl font-semibold text-white mb-2">
                           {category.projects[currentIndexes[catIndex]].title}
                         </h3>
-                        {/* Project Tags */}
+                        {/* Tags */}
                         <div className="flex flex-wrap gap-2 mb-4">
                           {category.projects[currentIndexes[catIndex]].tags.map(
                             (tag, tagIndex) => (
@@ -221,19 +208,18 @@ const Projects = () => {
                             )
                           )}
                         </div>
-                        {/* GitHub and Live Links */}
+                        {/* Links */}
                         <div className="flex space-x-4">
                           {category.projects[currentIndexes[catIndex]].github && (
                             <a
                               href={
-                                category.projects[currentIndexes[catIndex]]
-                                  .github
+                                category.projects[currentIndexes[catIndex]].github
                               }
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-gray-400 hover:text-white transition-colors"
                             >
-                              <Github size={20} />
+                              GitHub
                             </a>
                           )}
                           {category.projects[currentIndexes[catIndex]].live && (
@@ -245,7 +231,7 @@ const Projects = () => {
                               rel="noopener noreferrer"
                               className="text-gray-400 hover:text-white transition-colors"
                             >
-                              <ExternalLink size={20} />
+                              Live Demo
                             </a>
                           )}
                         </div>
@@ -256,125 +242,22 @@ const Projects = () => {
               </div>
 
               {/* Right Arrow */}
-              {currentIndexes[catIndex] <
-                category.projects.length - 1 && (
-                <button
-                  onClick={() => handleNext(catIndex)}
-                  className="absolute right-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
-                  style={{ marginRight: "20px" }}
-                >
-                  &#8594; {/* Right Arrow */}
-                </button>
-              )}
+              <button
+                onClick={() => handleNext(catIndex)}
+                className="absolute right-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
+                style={{ marginRight: "20px" }}
+              >
+                &#8594;
+              </button>
             </div>
           </div>
         ))}
       </div>
     </section>
-     <section id="projects" className="py-20 bg-black">
-      <div className="container mx-auto px-4 relative">
-        {/* Section Title */}
-        <h2 className="text-4xl font-bold text-white mb-8 text-center">
-          Projects
-        </h2>
-
-        {/* Loop over project categories */}
-        {projectCategories.map((category, catIndex) => (
-          <div key={catIndex} className="mb-16">
-            {/* Category Title */}
-            <h3 className="text-3xl font-semibold text-white mb-6">
-              {category.title}
-            </h3>
-
-            {/* Carousel Wrapper */}
-            <div className="relative flex items-center justify-center">
-              {/* Single Card Display */}
-              <div className="w-full max-w-md mx-auto overflow-hidden">
-                {category.projects[currentIndexes[catIndex]] && (
-                  <div className="bg-gray-900 rounded-xl shadow-lg w-full">
-                    <a
-                      href={
-                        category.projects[currentIndexes[catIndex]].live ||
-                        category.projects[currentIndexes[catIndex]].github
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block"
-                    >
-                      {/* Project Image */}
-                      <div className="relative h-64">
-                        <img
-                          src={category.projects[currentIndexes[catIndex]].image}
-                          alt={
-                            category.projects[currentIndexes[catIndex]].title
-                          }
-                          className="w-full h-full object-cover rounded-t-xl"
-                        />
-                      </div>
-                      {/* Project Details */}
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold text-white mb-2">
-                          {category.projects[currentIndexes[catIndex]].title}
-                        </h3>
-                        {/* Project Tags */}
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {category.projects[currentIndexes[catIndex]].tags.map(
-                            (tag, tagIndex) => (
-                              <span
-                                key={tagIndex}
-                                className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded-full"
-                              >
-                                {tag}
-                              </span>
-                            )
-                          )}
-                        </div>
-                        {/* GitHub and Live Links */}
-                        <div className="flex space-x-4">
-                          {category.projects[currentIndexes[catIndex]].github && (
-                            <a
-                              href={
-                                category.projects[currentIndexes[catIndex]]
-                                  .github
-                              }
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-gray-400 hover:text-white transition-colors"
-                            >
-                              <Github size={20} />
-                            </a>
-                          )}
-                          {category.projects[currentIndexes[catIndex]].live && (
-                            <a
-                              href={
-                                category.projects[currentIndexes[catIndex]].live
-                              }
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-gray-400 hover:text-white transition-colors"
-                            >
-                              <ExternalLink size={20} />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-
-
- );
+  );
 };
 
 export default Projects;
-
 
 
 // import React, { useState } from "react";
