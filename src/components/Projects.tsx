@@ -151,8 +151,7 @@ const Projects = () => {
               style={{ marginLeft: "20px" }}
             >
               &#8592; {/* Left Arrow */}
-            </button>
-          )} */}
+           
 
           {/* Carousel Container */}
           <div className="overflow-hidden w-full max-w-7xl">
