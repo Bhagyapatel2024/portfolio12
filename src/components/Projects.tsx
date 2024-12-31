@@ -144,14 +144,15 @@ const Projects = () => {
         {/* Carousel Wrapper */}
         <div className="relative flex items-center justify-center">
           {/* Left Arrow */}
-{/*           {currentIndexes[catIndex] > 0 && (
+          {currentIndexes[catIndex] > 0 && (
             <button
               onClick={() => handlePrev(catIndex)}
               className="absolute left-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
               style={{ marginLeft: "20px" }}
             >
               &#8592; {/* Left Arrow */}
-           
+             </button>
+           )}
 
           {/* Carousel Container */}
           <div className="overflow-hidden w-full max-w-7xl">
@@ -229,7 +230,7 @@ const Projects = () => {
           </div>
 
           {/* Right Arrow */}
-{/*           {currentIndexes[catIndex] < category.projects.length - 1 && (
+           {currentIndexes[catIndex] < category.projects.length - 1 && (
             <button
               onClick={() => handleNext(catIndex)}
               className="absolute right-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
@@ -237,7 +238,7 @@ const Projects = () => {
             >
               &#8594; {/* Right Arrow */}
             </button>
-          )} */}
+          )} 
         </div>
       </div>
     ))}
