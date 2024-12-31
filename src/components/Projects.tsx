@@ -131,121 +131,123 @@ const Projects = () => {
  return (
   
  <section id="projects" className="py-20 bg-black">
-  <div className="container mx-auto px-4 relative">
-    {/* Section Title */}
-    <h2 className="text-4xl font-bold text-white mb-8 text-center">Projects</h2>
+      <div className="container mx-auto px-4 relative">
+        {/* Section Title */}
+        <h2 className="text-4xl font-bold text-white mb-8 text-center">
+          Projects
+        </h2>
 
-    {/* Loop over project categories */}
-    {projectCategories.map((category, catIndex) => (
-      <div key={catIndex} className="mb-16">
-        {/* Category Title */}
-        <h3 className="text-3xl font-semibold text-white mb-6">{category.title}</h3>
+        {/* Loop over project categories */}
+        {projectCategories.map((category, catIndex) => (
+          <div key={catIndex} className="mb-16">
+            {/* Category Title */}
+            <h3 className="text-3xl font-semibold text-white mb-6">
+              {category.title}
+            </h3>
 
-        {/* Carousel Wrapper */}
-        <div className="relative flex items-center justify-center">
-          {/* Left Arrow */}
-          {currentIndexes[catIndex] > 0 && (
-            <button
-              onClick={() => handlePrev(catIndex)}
-              className="absolute left-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
-              style={{ marginLeft: "20px" }}
-            >
-              &#8592; {/* Left Arrow */}
-            </button>
-          )}
-
-          {/* Carousel Container */}
-          <div className="overflow-hidden w-full max-w-md md:max-w-7xl">
-            <div
-              className="flex transition-transform duration-500"
-              style={{
-                transform: `translateX(-${currentIndexes[catIndex] * 100}%)`,
-                width: `${category.projects.length * 100}%`,
-              }}
-            >
-              {/* Loop through projects */}
-              {category.projects.map((project, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-900 rounded-xl shadow-lg w-full md:w-80 mx-2"
-                  style={{ flex: '0 0 auto' }}
+            {/* Carousel Wrapper */}
+            <div className="relative flex items-center justify-center">
+              {/* Left Arrow */}
+              {currentIndexes[catIndex] > 0 && (
+                <button
+                  onClick={() => handlePrev(catIndex)}
+                  className="absolute left-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
+                  style={{ marginLeft: "20px" }}
                 >
-                  <a
-                    href={project.live || project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    {/* Project Image */}
-                    <div className="relative h-64">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover rounded-t-xl"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
+                  &#8592; {/* Left Arrow */}
+                </button>
+              )}
+
+              {/* Carousel Container */}
+              <div className="overflow-hidden w-full max-w-7xl">
+                <div
+                  className="flex transition-transform duration-500"
+                  style={{
+                    transform: `translateX(-${currentIndexes[catIndex] * 100}%)`,
+                  }}
+                >
+                  {/* Loop through projects */}
+                  {category.projects.map((project, index) => (
+                    <div
+                      key={index}
+                      className="bg-gray-900 rounded-xl shadow-lg w-full sm:w-80 mx-2"
+                    >
+                      <a
+                        href={project.live || project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block"
+                      >
+                        {/* Project Image */}
+                        <div className="relative h-64 sm:h-48">
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover rounded-t-xl"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
+                        </div>
+                        {/* Project Details */}
+                        <div className="p-6">
+                          <h3 className="text-xl font-semibold text-white mb-2">
+                            {project.title}
+                          </h3>
+                          {/* Project Tags */}
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {project.tags.map((tag, tagIndex) => (
+                              <span
+                                key={tagIndex}
+                                className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded-full"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                          {/* GitHub and Live Links */}
+                          <div className="flex space-x-4">
+                            {project.github && (
+                              <a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition-colors"
+                              >
+                                <Github size={20} />
+                              </a>
+                            )}
+                            {project.live && (
+                              <a
+                                href={project.live}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition-colors"
+                              >
+                                <ExternalLink size={20} />
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </a>
                     </div>
-                    {/* Project Details */}
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold text-white mb-2">
-                        {project.title}
-                      </h3>
-                      {/* Project Tags */}
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.tags.map((tag, index) => (
-                          <span
-                            key={index}
-                            className="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded-full"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      {/* GitHub and Live Links */}
-                      <div className="flex space-x-4">
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-white transition-colors"
-                          >
-                            <Github size={20} />
-                          </a>
-                        )}
-                        {project.live && (
-                          <a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-400 hover:text-white transition-colors"
-                          >
-                            <ExternalLink size={20} />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </a>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              {/* Right Arrow */}
+              {currentIndexes[catIndex] < category.projects.length - 1 && (
+                <button
+                  onClick={() => handleNext(catIndex)}
+                  className="absolute right-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
+                  style={{ marginRight: "20px" }}
+                >
+                  &#8594; {/* Right Arrow */}
+                </button>
+              )}
             </div>
           </div>
-
-          {/* Right Arrow */}
-          {currentIndexes[catIndex] < category.projects.length - 1 && (
-            <button
-              onClick={() => handleNext(catIndex)}
-              className="absolute right-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
-              style={{ marginRight: "20px" }}
-            >
-              &#8594; {/* Right Arrow */}
-            </button>
-          )}
-        </div>
+        ))}
       </div>
-    ))}
-  </div>
-</section>
+    </section>
 
 
 
