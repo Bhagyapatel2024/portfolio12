@@ -95,51 +95,45 @@ const machineLearningProjects = [
  }
 ];
 
-const Projects = ({ projectCategories }) => {
-  // Initialize the state for keeping track of current indexes
-  const [currentIndexes, setCurrentIndexes] = useState(
-    new Array(projectCategories.length).fill(0)
-  );
+const Projects = () => {
+  const projectCategories = [
+    { title: "Frontend Projects", projects: frontendProjects },
+    { title: "Full Stack Projects", projects: fullStackProjects },
+    { title: "Machine Learning Projects", projects: machineLearningProjects },
+    // { title: "LLM and NLP Projects", projects: llmNlpProjects },
+  ];
 
-  // Auto-slide effect using useEffect
-  useEffect(() => {
-    const autoSlide = setInterval(() => {
-      setCurrentIndexes((prevIndexes) =>
-        prevIndexes.map((currentIndex, catIndex) => {
-          const nextIndex =
-            (currentIndex + 1) % projectCategories[catIndex].projects.length;
-          return nextIndex;
-        })
-      );
-    }, 3000); // Slide changes every 3 seconds
+ // Initialize the state with an array for each category
+ const [currentIndexes, setCurrentIndexes] = useState(new Array(projectCategories.length).fill(0));
 
-    // Cleanup interval on unmount
-    return () => clearInterval(autoSlide);
-  }, [projectCategories]);
+ // Handle next button click for each category
+ const handleNext = (catIndex) => {
+   setCurrentIndexes((prevIndexes) => {
+     const newIndexes = [...prevIndexes];
+     if (newIndexes[catIndex] < projectCategories[catIndex].projects.length - 1) {
+       newIndexes[catIndex] += 1;
+     }
+     return newIndexes;
+   });
+ };
 
-  // Handle manual navigation
-  const handleNext = (catIndex) => {
-    setCurrentIndexes((prevIndexes) => {
-      const newIndexes = [...prevIndexes];
-      newIndexes[catIndex] =
-        (newIndexes[catIndex] + 1) %
-        projectCategories[catIndex].projects.length;
-      return newIndexes;
-    });
-  };
+ // Handle prev button click for each category
+ const handlePrev = (catIndex) => {
+   setCurrentIndexes((prevIndexes) => {
+     const newIndexes = [...prevIndexes];
+     if (newIndexes[catIndex] > 0) {
+       newIndexes[catIndex] -= 1;
+     }
+     return newIndexes;
+   });
+ };
 
-  const handlePrev = (catIndex) => {
-    setCurrentIndexes((prevIndexes) => {
-      const newIndexes = [...prevIndexes];
-      newIndexes[catIndex] =
-        (newIndexes[catIndex] - 1 + projectCategories[catIndex].projects.length) %
-        projectCategories[catIndex].projects.length;
-      return newIndexes;
-    });
-  };
 
-  return (
-    <section id="projects" className="py-20 bg-black">
+
+
+ return (
+  
+  <section id="projects" className="py-20 bg-black">
       <div className="container mx-auto px-4 relative">
         {/* Section Title */}
         <h2 className="text-4xl font-bold text-white mb-8 text-center">
@@ -157,15 +151,17 @@ const Projects = ({ projectCategories }) => {
             {/* Carousel Wrapper */}
             <div className="relative flex items-center justify-center">
               {/* Left Arrow */}
-              <button
-                onClick={() => handlePrev(catIndex)}
-                className="absolute left-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
-                style={{ marginLeft: "20px" }}
-              >
-                &#8592;
-              </button>
+              {currentIndexes[catIndex] > 0 && (
+                <button
+                  onClick={() => handlePrev(catIndex)}
+                  className="absolute left-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
+                  style={{ marginLeft: "20px" }}
+                >
+                  &#8592; {/* Left Arrow */}
+                </button>
+              )}
 
-              {/* Current Project Card */}
+              {/* Single Card Display */}
               <div className="w-full max-w-md mx-auto overflow-hidden">
                 {category.projects[currentIndexes[catIndex]] && (
                   <div className="bg-gray-900 rounded-xl shadow-lg w-full">
@@ -181,9 +177,7 @@ const Projects = ({ projectCategories }) => {
                       {/* Project Image */}
                       <div className="relative h-64">
                         <img
-                          src={
-                            category.projects[currentIndexes[catIndex]].image
-                          }
+                          src={category.projects[currentIndexes[catIndex]].image}
                           alt={
                             category.projects[currentIndexes[catIndex]].title
                           }
@@ -195,7 +189,7 @@ const Projects = ({ projectCategories }) => {
                         <h3 className="text-xl font-semibold text-white mb-2">
                           {category.projects[currentIndexes[catIndex]].title}
                         </h3>
-                        {/* Tags */}
+                        {/* Project Tags */}
                         <div className="flex flex-wrap gap-2 mb-4">
                           {category.projects[currentIndexes[catIndex]].tags.map(
                             (tag, tagIndex) => (
@@ -208,18 +202,19 @@ const Projects = ({ projectCategories }) => {
                             )
                           )}
                         </div>
-                        {/* Links */}
+                        {/* GitHub and Live Links */}
                         <div className="flex space-x-4">
                           {category.projects[currentIndexes[catIndex]].github && (
                             <a
                               href={
-                                category.projects[currentIndexes[catIndex]].github
+                                category.projects[currentIndexes[catIndex]]
+                                  .github
                               }
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-gray-400 hover:text-white transition-colors"
                             >
-                              GitHub
+                              <Github size={20} />
                             </a>
                           )}
                           {category.projects[currentIndexes[catIndex]].live && (
@@ -231,7 +226,7 @@ const Projects = ({ projectCategories }) => {
                               rel="noopener noreferrer"
                               className="text-gray-400 hover:text-white transition-colors"
                             >
-                              Live Demo
+                              <ExternalLink size={20} />
                             </a>
                           )}
                         </div>
@@ -242,23 +237,28 @@ const Projects = ({ projectCategories }) => {
               </div>
 
               {/* Right Arrow */}
-              <button
-                onClick={() => handleNext(catIndex)}
-                className="absolute right-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
-                style={{ marginRight: "20px" }}
-              >
-                &#8594;
-              </button>
+              {currentIndexes[catIndex] <
+                category.projects.length - 1 && (
+                <button
+                  onClick={() => handleNext(catIndex)}
+                  className="absolute right-0 bg-gray-800 text-white p-3 rounded-full shadow-md hover:bg-gray-600 transition-transform transform hover:scale-110 z-10"
+                  style={{ marginRight: "20px" }}
+                >
+                  &#8594; {/* Right Arrow */}
+                </button>
+              )}
             </div>
           </div>
         ))}
       </div>
     </section>
-  );
+    
+
+
+ );
 };
 
 export default Projects;
-
 
 // import React, { useState } from "react";
 
